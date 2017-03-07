@@ -1,7 +1,7 @@
 <template>
   <div>
     <form class='pokeSearch'>
-      <input class='form-control' type='text' v-model.trim='pokemonToSearch' @click='reset'/>
+      <auto-complete @inputChanged='pokemonToSearch = $event' options='bulbasaur' @click='reset'> </auto-complete>
       <br />
     </form>
     <button class='btn btn-default' @click='searchPokemon'> Search </button>
@@ -17,6 +17,7 @@
 
 <script>
 import pokemonDetails from './PokemonDetails.vue';
+import autoCompleteInput from './AutoCompleteInput.vue';
 
   export default {
     name: 'Pokemon',
@@ -29,6 +30,7 @@ import pokemonDetails from './PokemonDetails.vue';
     },
     components: {
       pokemonDetails: pokemonDetails,
+      autoComplete: autoCompleteInput,
     },
     methods: {
       searchPokemon() {
