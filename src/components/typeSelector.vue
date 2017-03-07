@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       btn: 'btn',
-      pokemonByType: [],
+      pokemonByType: []
       }
   },
   props:[ 'pokemonTypes' ],

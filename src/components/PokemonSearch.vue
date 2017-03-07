@@ -1,11 +1,12 @@
 <template>
   <div>
     <form class='pokeSearch'>
-      <input class='form-control' type='text' v-model.trim='pokemonToSearch' />
+      <input class='form-control' type='text' v-model.trim='pokemonToSearch' @click='reset'/>
       <br />
     </form>
     <button class='btn btn-default' @click='searchPokemon'> Search </button>
     <hr />
+    <div class="alert alert-danger" v-if='error'> {{ errorText }}</div>
     <div class="row">
       <div class="col-md-2" v-for='pokemon in pokemonData'>
         <pokemon-details :pokemonData='pokemon'></pokemon-details>
@@ -23,6 +24,7 @@ import pokemonDetails from './PokemonDetails.vue';
       return {
         pokemonData : [],
         pokemonToSearch: '',
+        error: undefined,
         }
     },
     components: {
@@ -33,12 +35,26 @@ import pokemonDetails from './PokemonDetails.vue';
         this.resource.getPokemon({pokemonToSearch: this.pokemonToSearch})
           .then( response => {
             return response.json();
+          }, error => {
+            this.error = error.status;
+            return Promise.reject(error);
           })
           .then(data => {
             this.pokemonToSearch = '';
             return this.pokemonData.push(data)});
-        
-      }  
+        },
+
+        reset() {
+          this.pokemonToSearch = '';
+          this.error = undefined;
+        }
+
+    },
+
+    computed: {
+      errorText: function() {
+        return `Sorry, we couldn't find anything with the name ${this.pokemonToSearch}`;
+      }
     },
 
     created() {
