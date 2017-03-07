@@ -1,7 +1,7 @@
 import Home from './components/Home.vue';
-import Pokemon from './components/Pokemon.vue';
+import PokemonSearch from './components/PokemonSearch.vue';
 
 export const routes = [
   {path: '', component: Home},
-  {path:'/pokemon', component: Pokemon}
+  {path:'/pokemon', component: PokemonSearch}
 ];
