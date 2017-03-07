@@ -20,7 +20,7 @@ export default {
       this.resource.pokemonByType({type: name})
         .then( response => { return response.json(); })
         .then( data => {
-          return this.pokemonByType = data.pokemon;
+          return this.pokemonByType = data.pokemon.map(p => p.pokemon.name);
         })
     } 
   },
