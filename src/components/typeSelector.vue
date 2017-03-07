@@ -3,10 +3,13 @@
   <span v-for='pType in pokemonTypes'>
     <button :class='[btn, pType.name]' style="margin:0.5em;" @click='getPokemonByType(pType.name)'>{{ pType.name }}</button>
   </span>
+  <hr />
+  <pokemon-list :pokemon='this.pokemonByType' v-if='this.pokemonByType.length > 0'></pokemon-list>
 </div>
 </template>
 
 <script>
+import pokemonList from './PokemonList.vue';
 export default {
   data() {
     return {
@@ -24,6 +27,10 @@ export default {
         })
     } 
   },
+
+  components: {
+    pokemonList,
+  }, 
   
   created() {
     const customActions = {
