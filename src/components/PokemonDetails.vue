@@ -1,13 +1,11 @@
 <template>
-  <div class="col-md-3">
     <div class="thumbnail">
     <img :src="spriteUrl" alt="pokemon shape" class='img-thumbnail'>
       <div class="caption">
         <h3> {{ pokemonData.name }} </h3>
-        <p><button class="btn btn-default">{{ pokemonType }}</button></p>
+        <p><button :class='[{btn: true}, pokemonType]'>{{ pokemonType }}</button></p>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -29,4 +27,5 @@ export default {
 </script>
 
 <style>
+@import '../assets/styles/type.scss';
 </style>

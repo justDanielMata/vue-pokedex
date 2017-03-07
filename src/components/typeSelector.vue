@@ -1,6 +1,6 @@
 <template>
 <div>
-  <span v-for='pType in pokemonTypes' class='spacing'>
+  <span v-for='pType in pokemonTypes'>
     <button :class='[btn, pType.name]' style="margin:0.5em;">{{ pType.name }}</button>
   </span>
 </div>

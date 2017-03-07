@@ -7,7 +7,9 @@
     <button class='btn btn-default' @click='searchPokemon'> Search </button>
     <hr />
     <div class="row">
-      <pokemon-details :pokemonData='pokemonData' v-if='pokemonData'></pokemon-details>
+      <div class="col-md-2" v-for='pokemon in pokemonData'>
+        <pokemon-details :pokemonData='pokemon'></pokemon-details>
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +21,7 @@ import pokemonDetails from './PokemonDetails.vue';
     name: 'Pokemon',
     data() {
       return {
-        pokemonData : undefined,
+        pokemonData : [],
         pokemonToSearch: '',
         }
     },
@@ -34,7 +36,7 @@ import pokemonDetails from './PokemonDetails.vue';
           })
           .then(data => {
             this.pokemonToSearch = '';
-            return this.pokemonData = data});
+            return this.pokemonData.push(data)});
         
       }  
     },
@@ -43,7 +45,7 @@ import pokemonDetails from './PokemonDetails.vue';
       const customActions = {
         getPokemon: {method: 'GET'}
       };
-      this.resource = this.$resource('pokemon/{pokemonToSearch}', {}, customActions);
+      this.resource = this.$resource('pokemon/{pokemonToSearch}/', {}, customActions);
     }
   }
 </script>
