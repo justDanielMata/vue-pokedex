@@ -1,7 +1,10 @@
 <template>
   <div>
     <form class='pokeSearch'>
-      <auto-complete @inputChanged='pokemonToSearch = $event' options='bulbasaur' @click='reset'> </auto-complete>
+      <auto-complete 
+        :selected = 'pokemonToSearch'
+        :options='options'> 
+      </auto-complete>
       <br />
     </form>
     <button class='btn btn-default' @click='searchPokemon'> Search </button>
@@ -23,6 +26,7 @@ import autoCompleteInput from './AutoCompleteInput.vue';
     name: 'Pokemon',
     data() {
       return {
+        options: ['pikachu', 'bulbasaur', 'squirtle', 'charizard'],
         pokemonData : [],
         pokemonToSearch: '',
         error: undefined,
