@@ -3,7 +3,8 @@
     <form class='pokeSearch'>
       <auto-complete 
         :selected = 'pokemonToSearch'
-        :options='options'> 
+        :options='options'
+        @valueSelected='pokemonToSearch = $event'> 
       </auto-complete>
       <br />
     </form>

@@ -1,6 +1,6 @@
 <template>
   <div style='position:relative' :class="{'open' :openSuggestion}">
-    <input class='form-control' type='text' v-model.trim='selected' 
+    <input class='form-control' type='text' v-model.trim='isSelected' 
       @input ='changeOption'
       @keydown.enter = 'enter'
       @keydown.down = 'down'
@@ -20,6 +20,7 @@
 export default {
   data() {
     return {
+      isSelected: this.selected,
       open: false,
       current: 0,
     }
@@ -27,12 +28,12 @@ export default {
   computed: {
     matches() {
       return this.options.filter(str => {
-        return str.indexOf(this.selected) >= 0;
+        return str.indexOf(this.isSelected) >= 0;
       });
     },
 
     openSuggestion() {
-      return this.selected !== '' &&
+      return this.isSelected !== '' &&
              this.matches.length != 0 &&
              this.open === true;
     }
@@ -40,8 +41,13 @@ export default {
 
   props: [ 'options', 'selected' ],
   methods: {
+    emitEvent(value) {
+      this.$emit('valueSelected', value);
+    },
+
     enter() {
-      this.selected = this.matches[this.current];
+      this.isSelected = this.matches[this.current];
+      this.emitEvent(this.isSelected);
       this.open = false;  
     },
 
@@ -66,8 +72,9 @@ export default {
       }
     },
     suggestionClick(index) {
-      this.selected = this.matches[index];
+      this.isSelected = this.matches[index];
       this.open = false;
+      this.emitEvent(this.isSelected);
     },
   }
 }
