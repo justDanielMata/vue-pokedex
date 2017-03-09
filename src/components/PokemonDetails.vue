@@ -2,8 +2,8 @@
     <div class="thumbnail">
     <img :src="spriteUrl" alt="pokemon shape" class='img-thumbnail'>
       <div class="caption">
-        <h3> {{ pokemonData.name }} </h3>
-        <p><button :class='[{btn: true}, pokemonType]'>{{ pokemonType }}</button></p>
+        <h3 style='text-align: center'> {{ pokemonData.name }} </h3>
+          <p><button :class='[{btn: true , margin: true}, pType]' v-for='pType in pokemonType'>{{ pType }}</button></p>
       </div>
     </div>
 </template>
@@ -16,7 +16,8 @@ export default {
 
   computed: {
     pokemonType: function () {
-      return this.pokemonData.types[0].type.name;
+      const types = this.pokemonData.types.map(type => type.type.name);
+      return types;
     },
 
     spriteUrl: function () {
@@ -27,5 +28,9 @@ export default {
 </script>
 
 <style>
-@import '../assets/styles/type.scss';
+  @import '../assets/styles/type.scss';
+    .margin {
+      margin-right: 0.5em;
+      text-align: center;
+    }
 </style>

@@ -9,7 +9,7 @@
     <ul class="dropdown-menu" style="width:100%">
      <li v-for='(suggestion, index) in matches'
          :class="{'active': isActive(index)}"
-         @click="suggestionClick(index)">
+         @click.prevent="suggestionClick(index)">
        <a href='#'>{{ suggestion }}</a>
      </li>
     </ul>
@@ -48,6 +48,7 @@ export default {
     enter() {
       this.isSelected = this.matches[this.current];
       this.emitEvent(this.isSelected);
+      this.isSelected='';
       this.open = false;  
     },
 
@@ -75,6 +76,7 @@ export default {
       this.isSelected = this.matches[index];
       this.open = false;
       this.emitEvent(this.isSelected);
+      this.isSelected='';
     },
   }
 }

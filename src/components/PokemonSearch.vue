@@ -4,7 +4,7 @@
       <auto-complete 
         :selected = 'pokemonToSearch'
         :options='options'
-        @valueSelected='pokemonToSearch = $event'> 
+        @valueSelected='setPokemonAndSearch($event)'> 
       </auto-complete>
       <br />
     </form>
@@ -12,7 +12,7 @@
     <hr />
     <div class="alert alert-danger" v-if='error'> {{ errorText }}</div>
     <div class="row">
-      <div class="col-md-2" v-for='pokemon in pokemonData'>
+      <div class="col-md-3" v-for='pokemon in pokemonData'>
         <pokemon-details :pokemonData='pokemon'></pokemon-details>
       </div>
     </div>
@@ -27,7 +27,7 @@ import autoCompleteInput from './AutoCompleteInput.vue';
     name: 'Pokemon',
     data() {
       return {
-        options: ['pikachu', 'bulbasaur', 'squirtle', 'charizard'],
+        options: [],
         pokemonData : [],
         pokemonToSearch: '',
         error: undefined,
@@ -38,6 +38,11 @@ import autoCompleteInput from './AutoCompleteInput.vue';
       autoComplete: autoCompleteInput,
     },
     methods: {
+      setPokemonAndSearch(pokemon){
+        this.pokemonToSearch = pokemon;
+        this.searchPokemon();
+      },
+
       searchPokemon() {
         this.resource.getPokemon({pokemonToSearch: this.pokemonToSearch})
           .then( response => {
@@ -50,7 +55,11 @@ import autoCompleteInput from './AutoCompleteInput.vue';
             this.pokemonToSearch = '';
             return this.pokemonData.push(data)});
         },
-
+        
+        createOptions(pokemon) {
+          this.options= pokemon.map(p => p.name);
+        },
+        
         reset() {
           this.pokemonToSearch = '';
           this.error = undefined;
@@ -69,6 +78,11 @@ import autoCompleteInput from './AutoCompleteInput.vue';
         getPokemon: {method: 'GET'}
       };
       this.resource = this.$resource('pokemon/{pokemonToSearch}/', {}, customActions);
+        this.$http.get('http://pokeapi.co/api/v2/pokemon/?limit=811')
+        .then(response => {
+          return response.json();
+        })
+        .then(data => this.createOptions(data.results));
     }
   }
 </script>
