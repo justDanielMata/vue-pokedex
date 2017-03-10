@@ -6,7 +6,7 @@
       @keydown.down = 'down'
       @keydown.up = 'up'
       />
-    <ul class="dropdown-menu" style="width:100%">
+    <ul class="dropdown-menu" style="width:100%; overflow-y:scroll; ">
      <li v-for='(suggestion, index) in matches'
          :class="{'active': isActive(index)}"
          @click.prevent="suggestionClick(index)">

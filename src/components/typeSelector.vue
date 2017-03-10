@@ -1,7 +1,7 @@
 <template>
 <div>
   <span v-for='pType in pokemonTypes'>
-    <button :class='[btn, pType.name]' style="margin:0.5em;" @click='getPokemonByType(pType.name)'>{{ pType.name }}</button>
+    <button class='btn' :class='[pType.name]' style="margin:0.5em;" @click='getPokemonByType(pType.name)'>{{ pType.name }}</button>
   </span>
   <hr />
   <pokemon-list :pokemon='this.pokemonByType' v-if='this.pokemonByType.length > 0'></pokemon-list>
@@ -13,7 +13,6 @@ import pokemonList from './PokemonList.vue';
 export default {
   data() {
     return {
-      btn: 'btn',
       pokemonByType: []
       }
   },
@@ -23,7 +22,7 @@ export default {
       this.resource.pokemonByType({type: name})
         .then( response => { return response.json(); })
         .then( data => {
-          return this.pokemonByType = data.pokemon.map(p => p.pokemon.name);
+          return this.pokemonByType = data.pokemon.map(p => ({name: p.pokemon.name, url:p.pokemon.url}));
         })
     } 
   },
