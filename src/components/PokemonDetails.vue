@@ -3,7 +3,10 @@
     <img :src="spriteUrl" alt="pokemon shape" class='img-thumbnail'>
       <div class="caption">
         <h3 style='text-align: center'> {{ pokemonData.name }} </h3>
-          <p><button :class='[{btn: true , margin: true}, pType]' v-for='pType in pokemonType'>{{ pType }}</button></p>
+          <p>
+            <button :class='[{btn: true , margin: true}, pType]' v-for='pType in pokemonType'>{{ pType }}</button>
+            <span class="badge" style='cursor:pointer'>...</span>
+          </p>
       </div>
     </div>
 </template>

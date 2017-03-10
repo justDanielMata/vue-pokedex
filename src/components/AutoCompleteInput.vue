@@ -47,9 +47,9 @@ export default {
 
     enter() {
       this.isSelected = this.matches[this.current];
-      this.emitEvent(this.isSelected);
-      this.isSelected='';
       this.open = false;  
+      this.emitEvent(this.isSelected);
+      this.isSelected=''; 
     },
 
     up() {
